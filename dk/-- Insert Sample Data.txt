@@ -1,0 +1,135 @@
+
+
+-- Insert 10 sample users
+INSERT INTO User (Username, Password, Role) VALUES
+('admin', '123', 'Admin'),
+('cashier', '123', 'Cashier'),
+('admin2', 'password3', 'Admin'),
+('cashier2', 'password4', 'Cashier'),
+('admin3', 'password5', 'Admin'),
+('cashier3', 'password6', 'Cashier'),
+('admin4', 'password7', 'Admin'),
+('cashier4', 'password8', 'Cashier'),
+('admin5', 'password9', 'Admin'),
+('cashier5', 'password10', 'Cashier');
+
+
+-- Insert 10 sample customers
+INSERT INTO Customer (FirstName, LastName, Email, Phone, Address, HouseNumber, PrefixDirection, PrefixType, StreetName, StreetType, SuffixDirection, City, State, Zip) VALUES
+('John', 'Doe', 'john.doe@example.com', '123-456-7890', '123 Main St', '123', 'N', 'St', 'Main', 'St', 'NW', 'Springfield', 'IL', '62701'),
+('Jane', 'Smith', 'jane.smith@example.com', '234-567-8901', '456 Elm St', '456', 'S', 'Ave', 'Elm', 'Ave', 'SW', 'Shelbyville', 'IL', '62702'),
+('Alice', 'Johnson', 'alice.johnson@example.com', '345-678-9012', '789 Oak St', '789', 'E', 'Blvd', 'Oak', 'Blvd', 'NE', 'Capital City', 'IL', '62703'),
+('Bob', 'Brown', 'bob.brown@example.com', '456-789-0123', '101 Pine St', '101', 'W', 'Rd', 'Pine', 'Rd', 'SE', 'Ogdenville', 'IL', '62704'),
+('Charlie', 'Davis', 'charlie.davis@example.com', '567-890-1234', '202 Maple St', '202', 'N', 'Ln', 'Maple', 'Ln', 'NW', 'North Haverbrook', 'IL', '62705'),
+('Diana', 'Evans', 'diana.evans@example.com', '678-901-2345', '303 Birch St', '303', 'S', 'Dr', 'Birch', 'Dr', 'SW', 'Brockway', 'IL', '62706'),
+('Eve', 'Garcia', 'eve.garcia@example.com', '789-012-3456', '404 Cedar St', '404', 'E', 'Ct', 'Cedar', 'Ct', 'NE', 'Springfield', 'IL', '62707'),
+('Frank', 'Harris', 'frank.harris@example.com', '890-123-4567', '505 Walnut St', '505', 'W', 'Pl', 'Walnut', 'Pl', 'SE', 'Shelbyville', 'IL', '62708'),
+('Grace', 'Lee', 'grace.lee@example.com', '901-234-5678', '606 Cherry St', '606', 'N', 'Way', 'Cherry', 'Way', 'NW', 'Capital City', 'IL', '62709'),
+('Hank', 'Martinez', 'hank.martinez@example.com', '012-345-6789', '707 Spruce St', '707', 'S', 'Trl', 'Spruce', 'Trl', 'SW', 'Ogdenville', 'IL', '62710');
+
+
+-- Insert 10 sample categories
+INSERT INTO Category (CategoryName, Description, CreatedByID, UpdatedByID) VALUES
+('Food', 'Pet food and treats', 1, 1),
+('Toys', 'Pet toys and accessories', 2, 2),
+('Health', 'Health and wellness products', 3, 3),
+('Grooming', 'Grooming supplies', 4, 4),
+('Apparel', 'Pet clothing and accessories', 5, 5),
+('Bedding', 'Pet beds and bedding', 6, 6),
+('Carriers', 'Pet carriers and travel accessories', 7, 7),
+('Training', 'Training tools and aids', 8, 8),
+('Litter', 'Cat litter and accessories', 9, 9),
+('Supplements', 'Dietary supplements for pets', 10, 10);
+
+
+-- Insert 10 sample products
+INSERT INTO Product (Name, Description, Brand, Price, CategoryID, QuantityInStock, ReorderLevel, CreatedByID, UpdatedByID) VALUES
+('Dog Food', 'Premium dog food', 'Brand A', 25.99, 1, 100, 10, 1, 1),
+('Cat Toy', 'Interactive cat toy', 'Brand B', 9.99, 2, 200, 20, 2, 2),
+('Flea Collar', 'Flea and tick collar', 'Brand C', 15.99, 3, 150, 15, 3, 3),
+('Shampoo', 'Gentle pet shampoo', 'Brand D', 12.99, 4, 120, 12, 4, 4),
+('Dog Jacket', 'Warm dog jacket', 'Brand E', 29.99, 5, 80, 8, 5, 5),
+('Pet Bed', 'Comfortable pet bed', 'Brand F', 49.99, 6, 90, 9, 6, 6),
+('Carrier Bag', 'Portable pet carrier', 'Brand G', 39.99, 7, 70, 7, 7, 7),
+('Training Clicker', 'Training clicker', 'Brand H', 5.99, 8, 300, 30, 8, 8),
+('Cat Litter', 'Clumping cat litter', 'Brand I', 19.99, 9, 250, 25, 9, 9),
+('Joint Supplements', 'Joint health supplements', 'Brand J', 34.99, 10, 60, 6, 10, 10);
+
+-- Insert 10 sample stock ins
+INSERT INTO StockIn (Supplier, InvoiceDate, InvoiceNumber, ProcessedByDate, TotalCost, CreatedByID) VALUES
+('Supplier A', '2023-01-01', 'INV001', '2023-01-02', 500.00, 1),
+('Supplier B', '2023-01-03', 'INV002', '2023-01-04', 750.00, 2),
+('Supplier C', '2023-01-05', 'INV003', '2023-01-06', 600.00, 3),
+('Supplier D', '2023-01-07', 'INV004', '2023-01-08', 450.00, 4),
+('Supplier E', '2023-01-09', 'INV005', '2023-01-10', 800.00, 5),
+('Supplier F', '2023-01-11', 'INV006', '2023-01-12', 550.00, 6),
+('Supplier G', '2023-01-13', 'INV007', '2023-01-14', 700.00, 7),
+('Supplier H', '2023-01-15', 'INV008', '2023-01-16', 650.00, 8),
+('Supplier I', '2023-01-17', 'INV009', '2023-01-18', 900.00, 9),
+('Supplier J', '2023-01-19', 'INV010', '2023-01-20', 850.00, 10);
+
+-- Insert 10 sample stock in details
+INSERT INTO StockInDetails (StockInID, ProductID, Quantity, UnitCost) VALUES
+(1, 1, 50, 20.00),
+(2, 2, 100, 8.00),
+(3, 3, 75, 12.00),
+(4, 4, 60, 10.00),
+(5, 5, 40, 25.00),
+(6, 6, 30, 40.00),
+(7, 7, 20, 35.00),
+(8, 8, 150, 4.00),
+(9, 9, 100, 15.00),
+(10, 10, 25, 30.00);
+
+-- Insert 10 sample orders
+INSERT INTO `Order` (CustomerID, TotalAmount, CreatedByID) VALUES
+(1, 100.00, 1),
+(2, 150.00, 2),
+(3, 200.00, 3),
+(4, 250.00, 4),
+(5, 300.00, 5),
+(6, 350.00, 6),
+(7, 400.00, 7),
+(8, 450.00, 8),
+(9, 500.00, 9),
+(10, 550.00, 10);
+
+
+-- Insert 10 sample order details
+INSERT INTO OrderDetails (OrderID, ProductID, Quantity, UnitPrice, Subtotal) VALUES
+(1, 1, 2, 25.99, 51.98),
+(2, 2, 3, 9.99, 29.97),
+(3, 3, 1, 15.99, 15.99),
+(4, 4, 4, 12.99, 51.96),
+(5, 5, 2, 29.99, 59.98),
+(6, 6, 1, 49.99, 49.99),
+(7, 7, 3, 39.99, 119.97),
+(8, 8, 5, 5.99, 29.95),
+(9, 9, 2, 19.99, 39.98),
+(10, 10, 1, 34.99, 34.99);
+
+-- Insert 10 sample payments
+INSERT INTO Payment (OrderID, Amount, PaymentMethod) VALUES
+(1, 100.00, 'Cash'),
+(2, 150.00, 'Card'),
+(3, 200.00, 'Cash'),
+(4, 250.00, 'Card'),
+(5, 300.00, 'Cash'),
+(6, 350.00, 'Card'),
+(7, 400.00, 'Cash'),
+(8, 450.00, 'Card'),
+(9, 500.00, 'Cash'),
+(10, 550.00, 'Card');
+
+-- Insert 10 sample audit logs
+INSERT INTO AuditLog (UserID, Action) VALUES
+(1, 'Created new product'),
+(2, 'Updated customer details'),
+(3, 'Processed new order'),
+(4, 'Added new stock'),
+(5, 'Updated product price'),
+(6, 'Processed payment'),
+(7, 'Created new category'),
+(8, 'Updated order status'),
+(9, 'Added new customer'),
+(10, 'Processed stock in');

@@ -1,0 +1,136 @@
+-- Create Database
+CREATE DATABASE IF NOT EXISTS pet;
+USE pet;
+
+-- User Table for Tracking CreatedByID and UpdatedByID
+CREATE TABLE User (
+    UserID INT AUTO_INCREMENT PRIMARY KEY,
+    Username VARCHAR(100) NOT NULL UNIQUE,
+    Password VARCHAR(255) NOT NULL,
+    Role ENUM('Admin', 'Cashier') NOT NULL,
+    CreatedDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    UpdatedDate DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Customer Table
+CREATE TABLE Customer (
+    CustomerID INT AUTO_INCREMENT PRIMARY KEY,
+    FirstName VARCHAR(100) NOT NULL,
+    LastName VARCHAR(100) NOT NULL,
+    Email VARCHAR(100) UNIQUE,
+    Phone VARCHAR(20),
+    Address TEXT,
+    CreatedDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    UpdatedDate DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+ALTER TABLE Customer
+ADD HouseNumber VARCHAR(10),
+ADD PrefixDirection VARCHAR(5),
+ADD PrefixType VARCHAR(20),
+ADD StreetName VARCHAR(100),
+ADD StreetType VARCHAR(20),
+ADD SuffixDirection VARCHAR(5),
+ADD City VARCHAR(100),
+ADD State VARCHAR(50),
+ADD Zip VARCHAR(10);
+
+-- Category Table
+CREATE TABLE Category (
+    CategoryID INT AUTO_INCREMENT PRIMARY KEY,
+    CategoryName VARCHAR(100) NOT NULL UNIQUE,
+    Description TEXT,
+    CreatedByID INT,
+    UpdatedByID INT,
+    CreatedDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    UpdatedDate DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (CreatedByID) REFERENCES User(UserID) ON DELETE SET NULL,
+    FOREIGN KEY (UpdatedByID) REFERENCES User(UserID) ON DELETE SET NULL
+);
+
+-- Product Table 
+CREATE TABLE Product (
+    ProductID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL,
+    Description TEXT,
+    Brand VARCHAR(100),
+    Price DECIMAL(10, 2) NOT NULL,
+    CategoryID INT,
+    QuantityInStock INT DEFAULT 0,
+    ReorderLevel INT DEFAULT 5,
+    CreatedByID INT,
+    UpdatedByID INT,
+    CreatedDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    UpdatedDate DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (CategoryID) REFERENCES Category(CategoryID) ON DELETE SET NULL,
+    FOREIGN KEY (CreatedByID) REFERENCES User(UserID) ON DELETE SET NULL,
+    FOREIGN KEY (UpdatedByID) REFERENCES User(UserID) ON DELETE SET NULL
+);
+
+-- Create modified StockIn table with requested columns
+CREATE TABLE StockIn (
+    StockInID INT AUTO_INCREMENT PRIMARY KEY,
+    Supplier VARCHAR(255) NOT NULL,
+    InvoiceDate DATE NOT NULL,
+    InvoiceNumber VARCHAR(100) NOT NULL,
+    ProcessedByDate DATE NOT NULL,
+    TotalCost DECIMAL(10, 2) DEFAULT 0.00,
+    CreatedByID INT,
+    CreatedDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (CreatedByID) REFERENCES User(UserID) ON DELETE SET NULL
+);
+
+-- Recreate StockInDetails table
+CREATE TABLE StockInDetails (
+    StockInDetailID INT AUTO_INCREMENT PRIMARY KEY,
+    StockInID INT,
+    ProductID INT,
+    Quantity INT NOT NULL,
+    UnitCost DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (StockInID) REFERENCES StockIn(StockInID) ON DELETE CASCADE,
+    FOREIGN KEY (ProductID) REFERENCES Product(ProductID) ON DELETE CASCADE
+);
+
+-- Order Table
+CREATE TABLE `Order` (
+    OrderID INT AUTO_INCREMENT PRIMARY KEY,
+    CustomerID INT,
+    OrderDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    TotalAmount DECIMAL(10, 2) NOT NULL,
+    OrderStatus ENUM('Completed') NOT NULL DEFAULT 'Completed',
+    CreatedByID INT,
+    FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID) ON DELETE SET NULL,
+    FOREIGN KEY (CreatedByID) REFERENCES User(UserID) ON DELETE SET NULL
+);
+
+-- OrderDetails Table
+CREATE TABLE OrderDetails (
+    OrderDetailID INT AUTO_INCREMENT PRIMARY KEY,
+    OrderID INT,
+    ProductID INT,
+    Quantity INT NOT NULL,
+    UnitPrice DECIMAL(10, 2) NOT NULL,
+    Subtotal DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (OrderID) REFERENCES `Order`(OrderID) ON DELETE CASCADE,
+    FOREIGN KEY (ProductID) REFERENCES Product(ProductID) ON DELETE CASCADE
+);
+
+-- Payment Table
+CREATE TABLE Payment (
+    PaymentID INT AUTO_INCREMENT PRIMARY KEY,
+    OrderID INT,
+    Amount DECIMAL(10, 2) NOT NULL,
+    PaymentMethod ENUM('Cash', 'Card') NOT NULL,
+    PaymentStatus ENUM('Completed') NOT NULL DEFAULT 'Completed',
+    PaymentDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (OrderID) REFERENCES `Order`(OrderID) ON DELETE CASCADE
+);
+
+-- Audit Log for Tracking User Actions
+CREATE TABLE AuditLog (
+    AuditLogID INT AUTO_INCREMENT PRIMARY KEY,
+    UserID INT,
+    Action VARCHAR(255) NOT NULL,
+    ActionDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (UserID) REFERENCES User(UserID) ON DELETE CASCADE
+);
